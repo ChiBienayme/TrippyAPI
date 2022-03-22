@@ -2,8 +2,14 @@ const express = require("express");
 const Joi = require("joi");
 const router = express.Router();
 
-// Hotel API
-const hotelsData = require("../datas/hotelsData.json");
+const dotenv = require("dotenv");
+dotenv.config({
+  path: "./config.env",
+});
+const { Pool } = require("pg");
+
+const Postgres = new Pool({ ssl: { rejectUnauthorized: false } });
+
 
 const schema = Joi.object({
 	id: Joi.number().required(),
@@ -39,13 +45,20 @@ function findHotelByID(req, _res, next) {
 
 
 // Créer la route /hotels qui retournera tous les hôtels (GET /hotels)
-// router.get("/", (_req, res) => {
-// 	if (hotelsData.length > 0) {
-// 		res.json(hotelsData);
-// 	} else {
-// 		res.send("No hotel");
-// 	}
-// });
+router.get("/", async (_req, res) => {
+	let hotels;
+	try {
+	  hotels = await Postgres.query("SELECT * FROM hotels");
+	} catch (err) {
+	  console.log(err);
+  
+	  return res.status(400).json({
+		message: "An error happened",
+	  });
+	}
+	res.json(hotels.rows);
+});
+
 
 // Créer la route /hotels/:id  (GET /hotels/:id)
 router.get("/:hotelID", findHotelByID, (req, res) => {

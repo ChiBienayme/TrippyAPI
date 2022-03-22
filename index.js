@@ -3,14 +3,12 @@ const app = express();
 
 // Routers
 const hotelsRouter = require("./routers/hotelsRouter");
-const restaurantsRouter = require("./routers/restaurantsRouter");
 
 // Middlewares
 app.use(express.json());
 
 // Routers
-app.use("/hotels", hotelsRouter);
-app.use("/restaurants", restaurantsRouter);
+app.use("/hotels", hotelsRouter) 
 
 // Routes
 app.get("/", (_res, res) => {
