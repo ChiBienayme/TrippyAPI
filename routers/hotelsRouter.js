@@ -3,8 +3,6 @@ const express = require("express");
 
 const router = express.Router();
 
-const app = express();
-
 const dotenv = require("dotenv");
 dotenv.config({
   path: "./config.env",
@@ -39,17 +37,6 @@ router.get("/:id",async (req, res) => {
 
 	res.json(hotel.rows);
 });
-
-
-// (GET /hotels/:id/name) with SQL
-app.get("/hotels/:id/books", (req, res) => {
-	const hotel = await Postgres.query(
-	  "SELECT books FROM hotels WHERE hotels.id=$1",
-	  [req.params.id]
-	);
-  
-	res.json(hotel.rows);
-  });
 
 //   export
 module.exports = router;

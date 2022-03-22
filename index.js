@@ -12,7 +12,7 @@ app.use("/hotels", hotelsRouter);
 // Routes
 app.get("/", (_req, res) => {
 	res.send(
-		"use endpoint /hotels whith GET method to show all hotels \n use endpoint /hotels whith POST method to add a hotel \n use endpoint /hotels/:id whith GET method to show the hotel who correspond \n use endpoint /restaurants whith GET method to see the restaurant who correspond \n use use endpoint /restaurants/:id whith GET method to see the restaurant who correspond"
+		"Hi clients, welcome !"
 	);
 });
 
